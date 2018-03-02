@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SupermercadoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TblProductos">
+    <Key>
+      <PropertyRef Name="Prod_IdProducto" />
+    </Key>
+    <Property Name="Prod_IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Prod_NombreProducto" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Prod_Precio" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Prod_Existencias" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="SupermercadoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TblProductos" EntityType="Self.TblProductos" />
+    <FunctionImport Name="SpListarProductos" ReturnType="Collection(SupermercadoModel.SpListarProductos_Result)" />
+    <FunctionImport Name="SpListarProductoEditar" ReturnType="Collection(SupermercadoModel.SpListarProductoEditar_Result)">
+      <Parameter Name="Prod_IdProducto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SpEditarProductos">
+      <Parameter Name="Prod_IdProducto" Mode="In" Type="Int32" />
+      <Parameter Name="Prod_NombreProducto" Mode="In" Type="String" />
+      <Parameter Name="Prod_Precio" Mode="In" Type="Decimal" />
+      <Parameter Name="Prod_Existencias" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SpEliminarProductos">
+      <Parameter Name="Prod_IdProducto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SpCrearProductos" ReturnType="Collection(SupermercadoModel.SpCrearProductos_Result)">
+      <Parameter Name="Prod_NombreProducto" Mode="In" Type="String" />
+      <Parameter Name="Prod_Precio" Mode="In" Type="Decimal" />
+      <Parameter Name="Prod_Existencias" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="SpListarProductos_Result">
+    <Property Type="Int32" Name="Prod_IdProducto" Nullable="false" />
+    <Property Type="String" Name="Prod_NombreProducto" Nullable="false" MaxLength="30" />
+    <Property Type="Decimal" Name="Prod_Precio" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="Prod_Existencias" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SpListarProductoEditar_Result">
+    <Property Type="Int32" Name="Prod_IdProducto" Nullable="false" />
+    <Property Type="String" Name="Prod_NombreProducto" Nullable="false" MaxLength="30" />
+    <Property Type="Decimal" Name="Prod_Precio" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="Prod_Existencias" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SpCrearProductos_Result">
+    <Property Type="Int32" Name="Prod_IdProducto" Nullable="false" />
+    <Property Type="String" Name="Prod_NombreProducto" Nullable="false" MaxLength="30" />
+    <Property Type="Decimal" Name="Prod_Precio" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="Prod_Existencias" Nullable="false" />
+  </ComplexType>
+</Schema>

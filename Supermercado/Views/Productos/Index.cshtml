@@ -1,0 +1,81 @@
+﻿@model Supermercado.Models.TblProductos
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>TblProductos</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Prod_NombreProducto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Prod_NombreProducto, new { htmlAttributes = new { @class = "form-control", id = "IdNombreProducto" } })
+                @Html.ValidationMessageFor(model => model.Prod_NombreProducto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Prod_Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Prod_Precio, new { htmlAttributes = new { @class = "form-control", id = "IdPrecio" } })
+                @Html.ValidationMessageFor(model => model.Prod_Precio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Prod_Existencias, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Prod_Existencias, new { htmlAttributes = new { @class = "form-control", id = "Existencias" } })
+                @Html.ValidationMessageFor(model => model.Prod_Existencias, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Crear Productos" class="btn btn-default" id="btnCrearProductos" />
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+
+        </tr>
+    </thead>
+    <tbody id="cuerpoTabla">
+        @foreach (var item in ViewBag.listaProductos)
+        {
+        <tr>
+            <td>@item.Prod_NombreProducto</td>
+            <td>@item.Prod_Precio</td>
+            <td>@item.Prod_Existencias</td>
+            <td>
+                @Html.ActionLink("Modificar", "Modificar","Productos", new { Prod_IdProducto = item.Prod_IdProducto }, new { htmlAttributes = new { @class = "bordeDerecho" } })
+                @Html.ActionLink("Eliminar", "Eliminar", new { Prod_IdProducto = item.Prod_IdProducto }, new { htmlAttributes = new { @class = "bordeDerecho" } })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

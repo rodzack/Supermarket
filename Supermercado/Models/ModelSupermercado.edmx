@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SupermercadoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TblProductos">
+          <Key>
+            <PropertyRef Name="Prod_IdProducto" />
+          </Key>
+          <Property Name="Prod_IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prod_NombreProducto" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Prod_Precio" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Prod_Existencias" Type="int" Nullable="false" />
+        </EntityType>
+        <Function Name="SpCrearProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Prod_NombreProducto" Type="varchar" Mode="In" />
+          <Parameter Name="Prod_Precio" Type="money" Mode="In" />
+          <Parameter Name="Prod_Existencias" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SpEditarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Prod_IdProducto" Type="int" Mode="In" />
+          <Parameter Name="Prod_NombreProducto" Type="varchar" Mode="In" />
+          <Parameter Name="Prod_Precio" Type="money" Mode="In" />
+          <Parameter Name="Prod_Existencias" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SpEliminarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Prod_IdProducto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SpListarProductoEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Prod_IdProducto" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SpListarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="SupermercadoModelStoreContainer">
+          <EntitySet Name="TblProductos" EntityType="Self.TblProductos" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SupermercadoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TblProductos">
+          <Key>
+            <PropertyRef Name="Prod_IdProducto" />
+          </Key>
+          <Property Name="Prod_IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prod_NombreProducto" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prod_Precio" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Prod_Existencias" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SupermercadoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TblProductos" EntityType="Self.TblProductos" />
+          <FunctionImport Name="SpListarProductos" ReturnType="Collection(SupermercadoModel.SpListarProductos_Result)" />
+          <FunctionImport Name="SpListarProductoEditar" ReturnType="Collection(SupermercadoModel.SpListarProductoEditar_Result)">
+          <Parameter Name="Prod_IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SpEditarProductos">
+            <Parameter Name="Prod_IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="Prod_NombreProducto" Mode="In" Type="String" />
+            <Parameter Name="Prod_Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Prod_Existencias" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SpEliminarProductos">
+          <Parameter Name="Prod_IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SpCrearProductos" ReturnType="Collection(SupermercadoModel.SpCrearProductos_Result)">
+            <Parameter Name="Prod_NombreProducto" Mode="In" Type="String" />
+            <Parameter Name="Prod_Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Prod_Existencias" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SpListarProductos_Result">
+          <Property Type="Int32" Name="Prod_IdProducto" Nullable="false" />
+          <Property Type="String" Name="Prod_NombreProducto" Nullable="false" MaxLength="30" />
+          <Property Type="Decimal" Name="Prod_Precio" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="Prod_Existencias" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SpListarProductoEditar_Result">
+          <Property Type="Int32" Name="Prod_IdProducto" Nullable="false" />
+          <Property Type="String" Name="Prod_NombreProducto" Nullable="false" MaxLength="30" />
+          <Property Type="Decimal" Name="Prod_Precio" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="Prod_Existencias" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SpCrearProductos_Result">
+          <Property Type="Int32" Name="Prod_IdProducto" Nullable="false" />
+          <Property Type="String" Name="Prod_NombreProducto" Nullable="false" MaxLength="30" />
+          <Property Type="Decimal" Name="Prod_Precio" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="Prod_Existencias" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SupermercadoModelStoreContainer" CdmEntityContainer="SupermercadoEntities">
+          <EntitySetMapping Name="TblProductos">
+            <EntityTypeMapping TypeName="SupermercadoModel.TblProductos">
+              <MappingFragment StoreEntitySet="TblProductos">
+                <ScalarProperty Name="Prod_IdProducto" ColumnName="Prod_IdProducto" />
+                <ScalarProperty Name="Prod_NombreProducto" ColumnName="Prod_NombreProducto" />
+                <ScalarProperty Name="Prod_Precio" ColumnName="Prod_Precio" />
+                <ScalarProperty Name="Prod_Existencias" ColumnName="Prod_Existencias" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SpListarProductos" FunctionName="SupermercadoModel.Store.SpListarProductos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermercadoModel.SpListarProductos_Result">
+                <ScalarProperty Name="Prod_IdProducto" ColumnName="Prod_IdProducto" />
+                <ScalarProperty Name="Prod_NombreProducto" ColumnName="Prod_NombreProducto" />
+                <ScalarProperty Name="Prod_Precio" ColumnName="Prod_Precio" />
+                <ScalarProperty Name="Prod_Existencias" ColumnName="Prod_Existencias" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SpListarProductoEditar" FunctionName="SupermercadoModel.Store.SpListarProductoEditar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermercadoModel.SpListarProductoEditar_Result">
+                <ScalarProperty Name="Prod_IdProducto" ColumnName="Prod_IdProducto" />
+                <ScalarProperty Name="Prod_NombreProducto" ColumnName="Prod_NombreProducto" />
+                <ScalarProperty Name="Prod_Precio" ColumnName="Prod_Precio" />
+                <ScalarProperty Name="Prod_Existencias" ColumnName="Prod_Existencias" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SpEditarProductos" FunctionName="SupermercadoModel.Store.SpEditarProductos" />
+          <FunctionImportMapping FunctionImportName="SpEliminarProductos" FunctionName="SupermercadoModel.Store.SpEliminarProductos" />
+          <FunctionImportMapping FunctionImportName="SpCrearProductos" FunctionName="SupermercadoModel.Store.SpCrearProductos" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SupermercadoModel.SpCrearProductos_Result">
+                <ScalarProperty Name="Prod_IdProducto" ColumnName="Prod_IdProducto" />
+                <ScalarProperty Name="Prod_NombreProducto" ColumnName="Prod_NombreProducto" />
+                <ScalarProperty Name="Prod_Precio" ColumnName="Prod_Precio" />
+                <ScalarProperty Name="Prod_Existencias" ColumnName="Prod_Existencias" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
